@@ -7,14 +7,13 @@ public static class Prices
         if (isShorNotation)
             return isFirstCapital ? "Руб." : "руб.";
 
-        var lastOne = price % 10;
-        var lastTwo = price % 100;
-
-        var output = "рублей";
-        if (lastOne == 1 && lastTwo != 11)
-            output = "рубль";
-        else if (lastOne is >= 2 and <= 4 && lastTwo is < 11 or > 14)
-            output = "рубля";
+        //надеюсь я правильно понял, что от меня хотят
+        var output = (Math.Abs(price) % 10, Math.Abs(price) % 100) switch {
+            (_, >= 11 and <= 14) => "рублей",
+            (1, _) => "рубль",
+            (>= 2 and <= 4, _) => "рубля",
+            _ => "рублей"
+        };
 
         return isFirstCapital ? "Р" + output[1..] : output;
     }

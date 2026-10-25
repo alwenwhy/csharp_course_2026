@@ -5,6 +5,7 @@ namespace AppTests.Lab1;
 public class PaymentsTests
 {
     [TestCase(PaymentsPlan.Annuity, 7, 3, 10000, 10116.9)]
+    [TestCase(PaymentsPlan.Annuity, 0, 3, 10000, 10000)]
     [TestCase(PaymentsPlan.Differentiated, 3, 5, 200000, 201500)]
     [TestCase(PaymentsPlan.Annuity, 10, 12, 100000, 105499.1)]
     [TestCase(PaymentsPlan.Annuity, 15, 6, 50000, 52210.1)]
