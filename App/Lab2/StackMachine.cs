@@ -6,13 +6,17 @@ public static class StackMachine
     {
         var result = "";
 
-        foreach (var line in codeLines) {
-            if (line.StartsWith("push ")) {
-                var value = line.Substring(5);
+        foreach (var line in codeLines) 
+        {
+            if (line.StartsWith("push ")) 
+            {
+                var value = line[5..];
                 result += value;
-            } else {
-                var count = int.Parse(line.Substring(4));
-                result = result.Substring(0, result.Length - count);
+            } 
+            else 
+            {
+                var count = int.Parse(line[4..]);
+                result = result[..^count];
             }
         }
 
