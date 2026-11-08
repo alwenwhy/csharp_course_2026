@@ -3,45 +3,57 @@ namespace App.Lab3;
 public class User
 {
     private const int PhoneDigitsAfterCountryCode = 10;
-    
-    private readonly Guid id;
-    private readonly string login;
-    private readonly string inn;
-    private readonly DateTime registerDate;
 
-    private string password;
-    private string name;
-    private string surname;
+    public Guid Id { get; init; }
+    public string Login { get; init; }
+    public string Inn { get; init; }
+    public DateTime RegisterDate { get; init; }
+
+    public string PasswordHash { get; set; }
+    public string Name { get; set; }
+    public string Surname { get; set; }
+
     private string phone;
-
-    public User(string login, string password, string name, string surname, string inn, string phone)
+    
+    public string Phone
     {
-        if (!IsPhoneValid(phone))
-            throw new ArgumentException("Phone is not valid");
-        
-        id = Guid.NewGuid();
-        registerDate = DateTime.Now;
-        
-        this.login = login;
-        this.password = password;
-        this.name = name;
-        this.surname = surname;
-        this.inn = inn;
-        this.phone = phone;
+        get => phone;
+        set
+        {
+            if (!TryUpdatePhone(value))
+                throw new ArgumentException("Invalid phone number");
+        }
+    }
+
+
+    public User()
+    {
+        Id = Guid.NewGuid();
+        RegisterDate = DateTime.Now;
+    }
+
+    public User(string login, string passwordHash, string name, string surname, string inn, string phone) : this()
+    {
+        Login = login;
+        PasswordHash = passwordHash;
+        Name = name;
+        Surname = surname;
+        Inn = inn;
+        Phone = phone;
     }
     
     // public string GetUserFullName() => $"{name} {surname}";
     public string GetUserFullName()
     {
-        return $"{name} {surname}";
+        return $"{Name} {Surname}";
     }
     
-    public bool TryUpdatePhone(string phone)
+    private bool TryUpdatePhone(string newPhone)
     {
-        if (!IsPhoneValid(phone))
+        if (!IsPhoneValid(newPhone))
             return false;
         
-        this.phone = phone;
+        this.phone = newPhone;
         return true;
     }
     

@@ -6,13 +6,42 @@ public static class Program
 {
     public static void Main()
     {
-        var ivan = new User("ivan_petrov", "qwerty123", "Иван", "Петров", "540123456789", "+79131234567");
-        var maria = new User("masha", "Pa$$w0rd", "Мария", "Сидорова", "770987654321", "89001112233");
+        var ivan = UserCreator.CreateUser("ivan_petrov", "qwerty123", "Иван", "Петров", "540123456789", "+79131234567");
+        var maria = UserCreator.CreateUser("masha", "Pa$$w0rd", "Мария", "Сидорова", "770987654321", "89001112233");
         
-        Console.WriteLine(ivan.GetUserFullName());
-        Console.WriteLine(maria.GetUserFullName());
+        PrintUser(ivan);
+        PrintUser(maria);
+
+        var oleg = new User
+        {
+            Login = "oleg_smirnov",
+            Name = "oleg",
+            Surname = "smirnov",
+            Inn = "4543646463",
+            Phone = "+79131234567"
+        };
+        PrintUser(oleg);
         
-        Console.WriteLine($"Новый номер +79990001122: {ivan.TryUpdatePhone("+79990001122")}");
-        Console.WriteLine($"Новый номер 12345: {ivan.TryUpdatePhone("12345")}");
+        oleg.Phone = "+79989562441";
+        Console.WriteLine(oleg.Phone);
+
+        try
+        {
+            oleg.Phone = "123";
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+        }
+        
+        //id поменять нельзя, init-свойство задаётся только в конструкторе или инициализаторе.
+    }
+
+    private static void PrintUser(User user)
+    {
+        Console.WriteLine(
+            $"{user.GetUserFullName()} ({user.Login}), тел. {user.Phone}, " +
+            $"id {user.Id}, зарегистрирован {user.RegisterDate:yyyy-MM-dd HH:mm} UTC, " +
+            $"хеш пароля {user.PasswordHash ?? "-"}");
     }
 }
