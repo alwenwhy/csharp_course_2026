@@ -7,10 +7,11 @@ public static class Program
     public static void Main()
     {
         var ivan = UserCreator.CreateUser("ivan_petrov", "qwerty123", "Иван", "Петров", "540123456789", "+79131234567");
-        var maria = UserCreator.CreateUser("masha", "Pa$$w0rd", "Мария", "Сидорова", "770987654321", "89001112233");
+        var maria = UserCreator.CreateUser("masha", "Pa$$w0rd", "Мария", "Сидорова", "770987654321", "8 900 111-22-33");
         
-        PrintUser(ivan);
-        PrintUser(maria);
+        Console.WriteLine(ivan.GetUserInfo());
+        Console.WriteLine(maria.GetUserInfo());
+        Console.WriteLine($"Хеш пароля Марии: {maria.PasswordHash}");
 
         var oleg = new User
         {
@@ -20,7 +21,7 @@ public static class Program
             Inn = "4543646463",
             Phone = "+79131234567"
         };
-        PrintUser(oleg);
+        Console.WriteLine(oleg.GetUserInfo());
         
         oleg.Phone = "+79989562441";
         Console.WriteLine(oleg.Phone);
@@ -35,13 +36,5 @@ public static class Program
         }
         
         //id поменять нельзя, init-свойство задаётся только в конструкторе или инициализаторе.
-    }
-
-    private static void PrintUser(User user)
-    {
-        Console.WriteLine(
-            $"{user.GetUserFullName()} ({user.Login}), тел. {user.Phone}, " +
-            $"id {user.Id}, зарегистрирован {user.RegisterDate:yyyy-MM-dd HH:mm} UTC, " +
-            $"хеш пароля {user.PasswordHash ?? "-"}");
     }
 }

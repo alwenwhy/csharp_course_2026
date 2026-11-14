@@ -6,9 +6,9 @@ public class User
 
     public Guid Id { get; init; }
     public string Login { get; init; }
-    public string Inn { get; init; }
     public DateTime RegisterDate { get; init; }
 
+    public string Inn { get; set; }
     public string PasswordHash { get; set; }
     public string Name { get; set; }
     public string Surname { get; set; }
@@ -24,7 +24,6 @@ public class User
                 throw new ArgumentException("Invalid phone number");
         }
     }
-
 
     public User()
     {
@@ -42,11 +41,12 @@ public class User
         Phone = phone;
     }
     
-    // public string GetUserFullName() => $"{name} {surname}";
-    public string GetUserFullName()
-    {
-        return $"{Name} {Surname}";
-    }
+    public string GetUserFullName() => $"{Name} {Surname}";
+
+    //на всякий случай хеш пихать сюда не буду
+    public string GetUserInfo() =>
+        $"{GetUserFullName()} ({Login}), тел. {Phone}, ИНН {Inn}, id {Id}, " +
+        $"зарегистрирован {RegisterDate:yyyy-MM-dd HH:mm} UTC";
     
     private bool TryUpdatePhone(string newPhone)
     {
@@ -70,15 +70,18 @@ public class User
         else
             return false;
 
-        if (phone.Length - start != PhoneDigitsAfterCountryCode)
-            return false;
-        
+        var digitsCount = 0;
         for (var i = start; i < phone.Length; i++)
         {
+            if (phone[i] == ' ' || phone[i] == '-')
+                continue;
+ 
             if (!char.IsAsciiDigit(phone[i]))
                 return false;
+ 
+            digitsCount++;
         }
         
-        return true;
+        return digitsCount == PhoneDigitsAfterCountryCode;
     }
 }

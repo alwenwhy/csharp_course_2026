@@ -4,15 +4,13 @@ namespace AppTests.Lab3;
 
 public class UserCreatorTests
 {
-    private static User CreateUser(string password)
-    {
-        return UserCreator.CreateUser("ivan_petrov", password, "Иван", "Петров", "540123456789", "+79131234567");
-    }
+    private static User CreateUser(string password) =>
+        UserCreator.CreateUser("ivan_petrov", password, "Иван", "Петров", "540123456789", "+79131234567");
 
     [TestCase("", "d41d8cd98f00b204e9800998ecf8427e")]
     [TestCase("frog", "938c2cc0dcc05f2b68c4287040cfcf71")]
     [TestCase("This is a message sent by a computer user.", "922547e866c89b8f677312df0ccec8ee")]
-    public void CreateUser_CreatesValidHash(string password, string expectedHash)
+    public void CreateUser_Returns_UserWithHash_When_PasswordGiven(string password, string expectedHash)
     {
         var user = CreateUser(password);
         
@@ -20,7 +18,7 @@ public class UserCreatorTests
     }
 
     [Test]
-    public void CreateUser_DoesNotStore_PlainPassword()
+    public void CreateUser_Returns_HashNotEqualToPassword_When_PasswordGiven()
     {
         const string password = "test";
         var user = CreateUser(password);
@@ -29,20 +27,20 @@ public class UserCreatorTests
     }
 
     [Test]
-    public void SamePassword_Give_SameHashes()
+    public void CreateUser_Returns_SameHashes_When_PasswordsEqual()
     {
         const string password = "test";
         Assert.That(CreateUser(password).PasswordHash, Is.EqualTo(CreateUser(password).PasswordHash));
     }
     
     [Test]
-    public void DifferentPassword_Give_DifferentHashes()
+    public void CreateUser_Returns_DifferentHashes_When_PasswordsDiffer()
     {
         Assert.That(CreateUser("123").PasswordHash, Is.Not.EqualTo(CreateUser("124").PasswordHash));
     }
     
     [Test]
-    public void CreateUser_Passes_OtherFields()
+    public void CreateUser_Returns_UserWithGivenData_When_DataValid()
     {
         var user = UserCreator.CreateUser("masha", "pwd", "Мария", "Сидорова", "770987654321", "89001112233");
 
@@ -57,7 +55,7 @@ public class UserCreatorTests
     }
 
     [Test]
-    public void CreateUser_Throws_When_InvalidPhone()
+    public void CreateUser_Throws_Exception_When_PhoneNotValid()
     {
         Assert.Throws<ArgumentException>(() =>
             UserCreator.CreateUser("masha", "pwd", "Мария", "Сидорова", "770987654321", "8900111223"));
