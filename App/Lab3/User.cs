@@ -6,9 +6,9 @@ public class User
     
     private readonly Guid id;
     private readonly string login;
-    private readonly string inn;
     private readonly DateTime registerDate;
 
+    private string inn;
     private string password;
     private string name;
     private string surname;
@@ -16,7 +16,7 @@ public class User
 
     public User(string login, string password, string name, string surname, string inn, string phone)
     {
-        if (!IsPhoneValid(phone))
+        if (!TryUpdatePhone(phone))
             throw new ArgumentException("Phone is not valid");
         
         id = Guid.NewGuid();
@@ -27,14 +27,9 @@ public class User
         this.name = name;
         this.surname = surname;
         this.inn = inn;
-        this.phone = phone;
     }
     
-    // public string GetUserFullName() => $"{name} {surname}";
-    public string GetUserFullName()
-    {
-        return $"{name} {surname}";
-    }
+    public string GetUserFullName() => $"{name} {surname}";
     
     public bool TryUpdatePhone(string phone)
     {
@@ -58,15 +53,18 @@ public class User
         else
             return false;
 
-        if (phone.Length - start != PhoneDigitsAfterCountryCode)
-            return false;
-        
+        var digitsCount = 0;
         for (var i = start; i < phone.Length; i++)
         {
+            if (phone[i] == ' ' || phone[i] == '-')
+                continue;
+ 
             if (!char.IsAsciiDigit(phone[i]))
                 return false;
+ 
+            digitsCount++;
         }
         
-        return true;
+        return digitsCount == PhoneDigitsAfterCountryCode;
     }
 }

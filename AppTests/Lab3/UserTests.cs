@@ -4,27 +4,24 @@ namespace AppTests.Lab3;
 
 public class UserTests
 {
-    private const string ValidPhone = "+79131234567";
-    
-    private static User CreateUser(string name = "Иван", string surname = "Петров", string phone = ValidPhone)
-    {
-        return new User("ivan_petrov", "qwerty123", name, surname, "540123456789", phone);
-    }
+    private static User CreateUser() =>
+        new("ivan_petrov", "qwerty123", "Иван", "Петров", "540123456789", "+79131234567");
 
-    [TestCase("Иван", "Петров", "Иван Петров")]
-    [TestCase("Мария", "Сидорова", "Мария Сидорова")]
-    [TestCase("Родион", "Раскольников", "Родион Раскольников")]
-    public void GetUserFullName_Returns_NameAndSurname(string name, string surname, string expected)
+    [Test]
+    public void GetUserFullName_Returns_NameAndSurname()
     {
-        var user = CreateUser(name, surname);
+        var user = CreateUser();
  
-        Assert.That(user.GetUserFullName(), Is.EqualTo(expected));
+        Assert.That(user.GetUserFullName(), Is.EqualTo("Иван Петров"));
     }
-
-    [TestCase(ValidPhone)]
+    
     [TestCase("89131234567")]
+    [TestCase("+79131234567")]
     [TestCase("+70000000000")]
-    public void GetUserPhone_Returns_True_When_PhoneValid(string phone)
+    [TestCase("+7 913 123-45-67")]
+    [TestCase("+7 913 123 45 67")]
+    [TestCase("8-000-000-00-00")]
+    public void TryUpdatePhone_Returns_True_When_PhoneValid(string phone)
     {
         var user = CreateUser();
         
@@ -38,8 +35,9 @@ public class UserTests
     [TestCase("+19131234567")]
     [TestCase("+791a1234567")]
     [TestCase("+7(000)000-00-00")]
-    [TestCase("+7 000 000 00 00")]
-    public void GetUserPhone_Returns_False_When_PhoneNotValid(string phone)
+    [TestCase("+7 000 000 00 0")]
+    [TestCase("+7 - - - ")]
+    public void TryUpdatePhone_Returns_False_When_PhoneNotValid(string phone)
     {
         var user = CreateUser();
         
@@ -49,13 +47,30 @@ public class UserTests
     [TestCase("")]
     [TestCase("8913123456")]
     [TestCase("891312345678")]
+    [TestCase("79131234567")]
+    [TestCase("+19131234567")]
+    [TestCase("+791a1234567")]
+    [TestCase("+7(000)000-00-00")]
+    [TestCase("+7 000 000 00 0")]
+    [TestCase("+7 - - - ")]
     public void Constructor_Throws_Exception_When_PhoneNotValid(string phone)
     {
-        Assert.Throws<ArgumentException>(() => CreateUser(phone: phone));
+        var isThrown = false;
+
+        try
+        {
+            new User("ivan_petrov", "qwerty123", "Иван", "Петров", "540123456789", phone);
+        }
+        catch (ArgumentException)
+        {
+            isThrown = true;
+        }
+        
+        Assert.That(isThrown, Is.True);
     }
     
     [Test]
-    public void TryUpdatePhone_CanBeCalledSeveralTimes()
+    public void TryUpdatePhone_Returns_ExpectedResults_When_CalledSeveralTimes()
     {
         var user = CreateUser();
 
@@ -66,5 +81,4 @@ public class UserTests
             Assert.That(user.TryUpdatePhone("+79990001122"), Is.True);
         }
     }
-
 }
