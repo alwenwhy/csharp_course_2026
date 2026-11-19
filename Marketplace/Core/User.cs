@@ -44,7 +44,7 @@ public class User
     public string GetUserFullName() => $"{Name} {Surname}";
 
     //на всякий случай хеш пихать сюда не буду
-    public string GetUserInfo() =>
+    public override string ToString() =>
         $"{GetUserFullName()} ({Login}), тел. {Phone}, ИНН {Inn}, id {Id}, " +
         $"зарегистрирован {RegisterDate:yyyy-MM-dd HH:mm} UTC";
     

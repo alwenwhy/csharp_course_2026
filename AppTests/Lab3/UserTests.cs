@@ -16,7 +16,7 @@ public class UserTests
     public void GetUserInfo_Returns_UserData()
     {
         var user = CreateUser();
-        var info = user.GetUserInfo();
+        var info = user.ToString();
 
         using (Assert.EnterMultipleScope())
         {
