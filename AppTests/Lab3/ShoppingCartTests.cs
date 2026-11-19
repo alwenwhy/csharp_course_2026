@@ -4,16 +4,6 @@ namespace AppTests.Lab3;
 
 public class ShoppingCartTests
 {
-    private static ShoppingCart CreateCart(params Product[] products)
-    {
-        var cart = new ShoppingCart();
-
-        foreach (var product in products)
-            cart.AddProduct(product);
-
-        return cart;
-    }
-
     [Test]
     public void TotalPrice_Returns_Zero_When_CartEmpty()
     {
@@ -166,5 +156,15 @@ public class ShoppingCartTests
         var cart = CreateCart(new Product("Хлеб", 60, ProductCategory.Food));
 
         Assert.That(cart.GetAllProducts(), Is.Not.SameAs(cart.GetAllProducts()));
+    }
+    
+    private static ShoppingCart CreateCart(params Product[] products)
+    {
+        var cart = new ShoppingCart();
+
+        foreach (var product in products)
+            cart.AddProduct(product);
+
+        return cart;
     }
 }

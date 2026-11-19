@@ -4,9 +4,6 @@ namespace AppTests.Lab3;
 
 public class UserTests
 {
-    private static User CreateUser() =>
-        new("ivan_petrov", "qwerty123", "Иван", "Петров", "540123456789", "+79131234567");
-
     [Test]
     public void GetUserFullName_Returns_NameAndSurname()
     {
@@ -67,4 +64,7 @@ public class UserTests
     {
         Assert.That(typeof(User).GetMethod("TryUpdatePhone"), Is.Null);
     }
+    
+    private static User CreateUser() =>
+        new("ivan_petrov", "qwerty123", "Иван", "Петров", "540123456789", "+79131234567");
 }

@@ -4,14 +4,6 @@ namespace AppTests.Lab3;
 
 public class MarketingServiceTests
 {
-    private static ShoppingCart CreateCartWithLaptop()
-    {
-        var cart = new ShoppingCart();
-        cart.AddProduct(new Product("Ноутбук", 80000, ProductCategory.Electronics)); // 72000 со скидкой на электрогику
-
-        return cart;
-    }
-
     [TestCase(10, 64800)]
     [TestCase(0, 72000)]
     [TestCase(100, 0)]
@@ -82,5 +74,13 @@ public class MarketingServiceTests
     public void ApplySecretDiscount_Throws_Exception_When_CartNull()
     {
         Assert.Throws<ArgumentException>(() => MarketingService.ApplySecretDiscount(null!, 10));
+    }
+    
+    private static ShoppingCart CreateCartWithLaptop()
+    {
+        var cart = new ShoppingCart();
+        cart.AddProduct(new Product("Ноутбук", 80000, ProductCategory.Electronics)); // 72000 со скидкой на электрогику
+
+        return cart;
     }
 }
