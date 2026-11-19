@@ -1,4 +1,4 @@
-namespace App.Lab3;
+namespace Marketplace.Core;
 
 public class User
 {

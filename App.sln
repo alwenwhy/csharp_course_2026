@@ -1,8 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
+# 
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App", "App\App.csproj", "{43627CB8-B153-46C2-A49D-8A760DB53DF7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppTests", "AppTests\AppTests.csproj", "{B988E016-CA98-40CB-B971-46ECD2C0EEB3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Marketplace", "Marketplace", "{580A00BF-55B0-4E2D-AC86-D957C6E0ED28}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Marketplace.Core", "Marketplace\Core\Marketplace.Core.csproj", "{54130E27-BE13-423C-B97C-07571E17CB0E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Marketplace.App", "Marketplace\App\Marketplace.App.csproj", "{85540192-C9E3-4421-9823-63963722BAEE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,5 +25,17 @@ Global
 		{B988E016-CA98-40CB-B971-46ECD2C0EEB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B988E016-CA98-40CB-B971-46ECD2C0EEB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B988E016-CA98-40CB-B971-46ECD2C0EEB3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54130E27-BE13-423C-B97C-07571E17CB0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54130E27-BE13-423C-B97C-07571E17CB0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54130E27-BE13-423C-B97C-07571E17CB0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54130E27-BE13-423C-B97C-07571E17CB0E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{85540192-C9E3-4421-9823-63963722BAEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{85540192-C9E3-4421-9823-63963722BAEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{85540192-C9E3-4421-9823-63963722BAEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{85540192-C9E3-4421-9823-63963722BAEE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{54130E27-BE13-423C-B97C-07571E17CB0E} = {580A00BF-55B0-4E2D-AC86-D957C6E0ED28}
+		{85540192-C9E3-4421-9823-63963722BAEE} = {580A00BF-55B0-4E2D-AC86-D957C6E0ED28}
 	EndGlobalSection
 EndGlobal
