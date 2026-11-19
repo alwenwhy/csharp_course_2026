@@ -4,9 +4,6 @@ namespace AppTests.Lab3;
 
 public class UserCreatorTests
 {
-    private static User CreateUser(string password) =>
-        UserCreator.CreateUser("ivan_petrov", password, "Иван", "Петров", "540123456789", "+79131234567");
-
     [TestCase("", "d41d8cd98f00b204e9800998ecf8427e")]
     [TestCase("frog", "938c2cc0dcc05f2b68c4287040cfcf71")]
     [TestCase("This is a message sent by a computer user.", "922547e866c89b8f677312df0ccec8ee")]
@@ -60,4 +57,7 @@ public class UserCreatorTests
         Assert.Throws<ArgumentException>(() =>
             UserCreator.CreateUser("masha", "pwd", "Мария", "Сидорова", "770987654321", "8900111223"));
     }
+    
+    private static User CreateUser(string password) =>
+        UserCreator.CreateUser("ivan_petrov", password, "Иван", "Петров", "540123456789", "+79131234567");
 }
