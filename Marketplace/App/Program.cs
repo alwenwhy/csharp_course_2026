@@ -7,7 +7,7 @@ public static class Program
     public static void Main()
     {
         var ivan = UserCreator.CreateUser("ivan_petrov", "qwerty123", "Иван", "Петров", "540123456789", "+79131234567");
-        Console.WriteLine(ivan.GetUserInfo());
+        Console.WriteLine(ivan.ToString());
         
         var cart = new ShoppingCart();
         cart.AddProduct(new Product("Ноутбук", 80000, ProductCategory.Electronics));
