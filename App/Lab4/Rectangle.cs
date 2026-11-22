@@ -14,7 +14,7 @@ public class Rectangle : IGeometry
         if (bottomLeft == null)
             throw new ArgumentException("Vertex cannot be null");
         
-        if (!(width > 0) ||  !(height > 0))
+        if (!(width > 0) || !(height > 0))
             throw new ArgumentException("Width and height must be greater than zero");
         
         this.bottomLeft = new Vertex(bottomLeft.X, bottomLeft.Y);
@@ -23,6 +23,15 @@ public class Rectangle : IGeometry
     }
 
     public double CalculateArea() => Width * Height;
-    
-    
+
+    public I2DVertex[] GetVertexes()
+    {
+        return
+        [
+            new Vertex(bottomLeft.X, bottomLeft.Y),
+            new Vertex(bottomLeft.X + Width, bottomLeft.Y),
+            new Vertex(bottomLeft.X + Width, bottomLeft.Y + Height),
+            new Vertex(bottomLeft.X, bottomLeft.Y + Height)
+        ];
+    }
 }
