@@ -5,6 +5,4 @@ public class Square : Rectangle
     public Square(I2DVertex bottomLeft, double side) : base(bottomLeft, side, side)
     {
     }
-
-    public double Side => Width;
 }
