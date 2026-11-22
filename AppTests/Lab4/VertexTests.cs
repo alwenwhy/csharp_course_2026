@@ -24,4 +24,39 @@ public class VertexTests
 
         Assert.That(vertex.ToString(), Is.EqualTo("(x = 25,000, y = -7,421)"));
     }
+
+    [Test]
+    public void FromCoordinates_Returns_VertexesFromPairs_When_EvenNumberOfCoordinates()
+    {
+        var vertexes = Vertex.FromCoordinates([1, 2, -3, 4.5]);
+
+        using (Assert.EnterMultipleScope())
+        {
+            Assert.That(vertexes, Has.Length.EqualTo(2));
+            Assert.That(vertexes[0].X, Is.EqualTo(1.0));
+            Assert.That(vertexes[0].Y, Is.EqualTo(2.0));
+            Assert.That(vertexes[1].X, Is.EqualTo(-3.0));
+            Assert.That(vertexes[1].Y, Is.EqualTo(4.5));
+        }
+    }
+
+    [Test]
+    public void FromCoordinates_Returns_EmptyArray_When_NoCoordinates()
+    {
+        Assert.That(Vertex.FromCoordinates([]), Is.Empty);
+    }
+
+    [Test]
+    public void FromCoordinates_Throws_Exception_When_OddNumberOfCoordinates()
+    {
+        Assert.Throws<ArgumentException>(() => Vertex.FromCoordinates([1, 2, 3]));
+    }
+
+    [Test]
+    public void ToCoordinates_Returns_SameCoordinates_When_ConvertedBackAndForth()
+    {
+        var coordinates = new double[] { 1, 2, -3, 4.5, 0, 0 };
+
+        Assert.That(Vertex.ToCoordinates(Vertex.FromCoordinates(coordinates)), Is.EqualTo(coordinates));
+    }
 }
