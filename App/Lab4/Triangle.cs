@@ -17,7 +17,7 @@ public class Triangle : IGeometry
         this.b = new Vertex(b.X, b.Y);
         this.c = new Vertex(c.X, c.Y);
         
-        // если площадь равна нулю, то треугольник либо схлопнут в отрезок, или это вообще одна точка получилась
+        // если площадь равна нулю, то треугольник либо схлопнут в отрезок, либо это вообще одна точка получилась
         if (CalculateArea() == 0)
             throw new ArgumentException("The area is zero. Maybe, the vertexes lie on a single line?");
     }
